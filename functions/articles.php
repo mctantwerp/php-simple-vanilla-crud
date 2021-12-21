@@ -1,6 +1,6 @@
 <?php
 
-function add(object $conn, string $titel, string $inhoud): bool
+function addArticle(object $conn, string $titel, string $inhoud): bool
 {
     $sql = "INSERT INTO artikels SET titel = ?, inhoud = ?";
 
@@ -19,7 +19,7 @@ function add(object $conn, string $titel, string $inhoud): bool
 
 }
 
-function update(object $conn, int $id, string $titel, string $inhoud): bool
+function updateArticle(object $conn, int $id, string $titel, string $inhoud): bool
 {
     $sql = "UPDATE artikels SET titel = ?, inhoud = ? WHERE id = ?";
 
@@ -43,12 +43,12 @@ function update(object $conn, int $id, string $titel, string $inhoud): bool
 
 }
 
-function get($conn): object
+function getArticle($conn): object
 {
     return $conn->query('select * from artikels');
 }
 
-function getOne(object $conn, int $id): array
+function getOneArticle(object $conn, int $id): array
 {
     $sql = "SELECT * FROM artikels where id = ?";
 
@@ -66,7 +66,7 @@ function getOne(object $conn, int $id): array
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function delete(object $conn, int $id): bool
+function deleteArticle(object $conn, int $id): bool
 {
     $sql = "DELETE FROM artikels where id = ?";
 

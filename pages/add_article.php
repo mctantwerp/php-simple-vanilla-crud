@@ -26,7 +26,7 @@
         if(!empty($_POST['titel']) && !empty($_POST['inhoud']))
         {
             // Article toevoegen in database, als dat lukt, boodschap tonen
-            if(add($conn, $_POST['titel'], $_POST['inhoud'])) {
+            if(addArticle($conn, $_POST['titel'], $_POST['inhoud'])) {
                 $msg = 'Artikel toegevoegd';
 
                 include('./templates/article_form.php');
