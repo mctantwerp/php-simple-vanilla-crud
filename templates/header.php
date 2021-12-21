@@ -21,10 +21,10 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link<?php echo Helpers::getActive($page, 'home'); ?>" href="?page=home">Home</a>
+          <a class="nav-link<?php getActive('home', $page); ?>" href="?page=home">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link<?php echo Helpers::getActive($page, 'add'); ?>" href="?page=add">Artikel toevoegen</a>
+          <a class="nav-link<?php getActive('add', $page); ?>" href="?page=add">Artikel toevoegen</a>
         </li>
       </ul>
     </div>

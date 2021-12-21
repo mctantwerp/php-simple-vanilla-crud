@@ -1,10 +1,12 @@
 <?php
-    include('./classes/DB.php');
-    include('./classes/Helpers.php');
-    include('./classes/Articles.php');
+    include('./functions/db.php');
+    include('./functions/helpers.php');
+    include('./functions/articles.php');
+
+    $conn = connect();
 
     session_start();
-    
+
     // Gebruiker nog niet ingelogged
     if(!isset($_SESSION['logged_in']))
     {
@@ -13,6 +15,7 @@
         {
             // Kloppen de login gegevens?
             if($_POST['email'] == 'test@test.be' && $_POST['password'] == 'testtest')
+            //if($_POST['email'] == 'test@test.be' && password_verify($_POST['password'], '$2y$10$wrIw6sWIJgWTcFbaRO9MVusfj6B/uvv0oObBWFA/AjfzslSRL4Fui'))
             {
                 // Alles klopt, you may proceed
                 $_SESSION['logged_in'] = 1;

@@ -20,13 +20,13 @@
             $titel = $_POST['titel'];
             $inhoud = $_POST['inhoud'];
 
-            include('./templates/article_form.php');    
+            include('./templates/article_form.php');
         }
 
         if(!empty($_POST['titel']) && !empty($_POST['inhoud']))
         {
             // Article toevoegen in database, als dat lukt, boodschap tonen
-            if(Articles::add($_POST['titel'], $_POST['inhoud'])) {
+            if(add($conn, $_POST['titel'], $_POST['inhoud'])) {
                 $msg = 'Artikel toegevoegd';
 
                 include('./templates/article_form.php');

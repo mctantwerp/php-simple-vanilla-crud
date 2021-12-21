@@ -10,12 +10,12 @@
             // Aanpassingen gepost
             if(isset($_POST['submit']))
             {
-                Articles::update($id, $_POST['titel'], $_POST['inhoud']);
+                update($conn, $id, $_POST['titel'], $_POST['inhoud']);
                 $msg = "Artikel is aangepast";
             }
 
             // Artikel ophalen
-            $artikel = Articles::getOne($id);
+            $artikel = getOne($conn, $id);
 
             // Meta data (omdat formulier door add & edit wordt gebruikt)
             $titel_action = 'Artikel aanpassen';
@@ -29,17 +29,17 @@
         }break;
 
         case 'delete': {
-            Articles::delete($_GET['id']);
+            delete($conn, $_GET['id']);
 
             $msg = "Artikel is verwijderd";
 
-            $artikels = Articles::get();
+            $artikels = get($conn);
 
             include('./templates/list_articles.php');
         }break;
 
         default: {
-            $artikels = Articles::get();
+            $artikels = get($conn);
 
             include('./templates/list_articles.php');
         }

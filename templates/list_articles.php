@@ -29,15 +29,15 @@
                 <?php
                 foreach($artikels as $artikel) { ?>
                 <tr>
-                    <td><?php echo substr($artikel['titel'], 0, 15); ?></td>
-                    <td><?php echo substr($artikel['inhoud'], 0, 15); ?></td>
+                    <td><?= substr($artikel['titel'], 0, 15); ?></td>
+                    <td><?= substr($artikel['inhoud'], 0, 15); ?></td>
                     <td>
-                        <a href="?page=home&action=edit&id=<?php echo $artikel['id']; ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a href="?page=home&action=delete&id=<?php echo $artikel['id']; ?>" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        <a href="?page=home&action=edit&id=<?= $artikel['id']; ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a href="?page=home&action=delete&id=<?= $artikel['id']; ?>" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
                 </tr>
                 <?php } ?>
             </tbody>
         </table>
     </div>
-</div>     
+</div>
