@@ -1,7 +1,7 @@
 <?php
 class Articles
 {
-    public static function add($titel, $inhoud)
+    public static function add(string $titel, string $inhoud): bool
     {
         $sql = "INSERT INTO artikels SET titel = ?, inhoud = ?";
 
@@ -17,10 +17,10 @@ class Articles
         }
 
         return true;
-        
+
     }
 
-    public static function update($id, $titel, $inhoud)
+    public static function update(int $id, string $titel, string $inhoud): bool
     {
         $sql = "UPDATE artikels SET titel = ?, inhoud = ? WHERE id = ?";
 
@@ -31,7 +31,7 @@ class Articles
             $stmt->bindParam(1, $titel, PDO::PARAM_STR);
             $stmt->bindParam(2, $inhoud, PDO::PARAM_STR);
             $stmt->bindParam(3, $id, PDO::PARAM_INT);
-            
+
             $stmt->execute();
         }
         catch(PDOException $e)
@@ -41,15 +41,15 @@ class Articles
         }
 
         return true;
-        
+
     }
 
-    public static function get()
+    public static function get(): object
     {
-        return DB::query('select * from artikels');   
+        return DB::query('select * from artikels');
     }
 
-    public static function getOne($id) 
+    public static function getOne(int $id): object
     {
         $sql = "SELECT * FROM artikels where id = ?";
 
@@ -67,7 +67,7 @@ class Articles
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function delete($id)
+    public static function delete(int $id): bool
     {
         $sql = "DELETE FROM artikels where id = ?";
 
