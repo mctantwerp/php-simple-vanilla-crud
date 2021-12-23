@@ -26,8 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php
-                foreach($artikels as $artikel) { ?>
+                <?php foreach($artikels as $artikel): ?>
                 <tr>
                     <td><?= substr($artikel['titel'], 0, 15); ?></td>
                     <td><?= substr($artikel['inhoud'], 0, 15); ?></td>
@@ -36,7 +35,7 @@
                         <a href="?page=home&action=delete&id=<?= $artikel['id']; ?>" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
                 </tr>
-                <?php } ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
