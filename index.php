@@ -1,10 +1,8 @@
 <?php
-    include('./classes/DB.php');
-    include('./classes/Helpers.php');
-    include('./classes/Articles.php');
+    include('./includes/autoloader.php');
 
     session_start();
-    
+
     // Gebruiker nog niet ingelogged
     if(!isset($_SESSION['logged_in']))
     {

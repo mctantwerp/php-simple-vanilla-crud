@@ -10,36 +10,53 @@
             // Aanpassingen gepost
             if(isset($_POST['submit']))
             {
-                Articles::update($id, $_POST['titel'], $_POST['inhoud']);
+                $artikel = new Article($id);
+
+                $artikel->titel = $_POST['titel'];
+                $artikel->inhoud = $_POST['inhoud'];
+
+                $artikel->save();
+
                 $msg = "Artikel is aangepast";
             }
 
             // Artikel ophalen
-            $artikel = Articles::getOne($id);
+            $artikel = new Article($id);
 
             // Meta data (omdat formulier door add & edit wordt gebruikt)
             $titel_action = 'Artikel aanpassen';
             $form_action = 'index.php?page=home&action=edit&id='. $id;
 
             // Prefill fields
-            $titel = $artikel['titel'];
-            $inhoud = $artikel['inhoud'];
+            $titel = $artikel->titel;
+            $inhoud = $artikel->inhoud;
 
             include('./templates/article_form.php');
         }break;
 
         case 'delete': {
-            Articles::delete($_GET['id']);
+            $id = $_GET['id'] ?? null;
+
+            $artikel = new Article($id);
+            $artikel->delete();
+
+            /**
+             * Wat ook kan
+             */
+            /*
+            $artikel = new Article();
+            $artikel = $artikel->find($id)->delete();
+            */
 
             $msg = "Artikel is verwijderd";
 
-            $artikels = Articles::get();
+            $artikels = Article::get();
 
             include('./templates/list_articles.php');
         }break;
 
         default: {
-            $artikels = Articles::get();
+            $artikels = Article::get();
 
             include('./templates/list_articles.php');
         }
