@@ -7,7 +7,7 @@ function registerExceptionHandler(): void
     $whoops->register();
 }
 
-function getActiveMenu(string $menu, string $page='home'): string
+function getActiveMenu(string $menu, string $page = 'home'): string
 {
     // Als de huidige pagina overeenkomt met het huidige menu gaan we die active zetten
     if($page === $menu)
@@ -57,4 +57,9 @@ function redirect($url): void
 {
     header('location: ' . $url);
     exit;
+}
+
+function getLoggedInUserId(): int
+{
+    return $_SESSION['user_id'] ?? null;
 }

@@ -30,7 +30,8 @@ function updateArticle(PDO $conn, int $article_id, string $title, string $articl
     $article = htmlspecialchars($article, ENT_QUOTES, 'UTF-8');
     $now = getCurrentDateTime();
 
-    $sql = "UPDATE articles SET title = :title, article = :article, updated_at = :updated_at WHERE id = :article_id";
+    $sql = "UPDATE articles SET title = :title, article = :article, updated_at = :updated_at WHERE user_id = :user_id AND id = :article_id";
+    $user_id = getLoggedInUserId();
 
     try
     {
@@ -39,6 +40,7 @@ function updateArticle(PDO $conn, int $article_id, string $title, string $articl
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
         $stmt->bindParam(':article', $article, PDO::PARAM_STR);
         $stmt->bindParam(':updated_at', $now, PDO::PARAM_STR);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindParam(':article_id', $article_id, PDO::PARAM_INT);
 
         $stmt->execute();
@@ -46,7 +48,7 @@ function updateArticle(PDO $conn, int $article_id, string $title, string $articl
     catch(PDOException $e)
     {
         flash('msg', 'Oops, something went wrong: '. $e->getMessage());
-        redirect('index.php?page=update');
+        redirect('index.php?page=home&action=update&id='. $article_id);
     }
 
     return true;
@@ -58,11 +60,11 @@ function getArticles(PDO $conn, bool $withTrashed = false): object
     {
         if($withTrashed === true)
         {
-            $res = $conn->query('SELECT * FROM articles');
+            $res = $conn->query('SELECT * FROM articles WHERE user_id = '.getLoggedInUserId());
         }
         else
         {
-            $res = $conn->query('SELECT * FROM articles WHERE deleted_at IS NULL');
+            $res = $conn->query('SELECT * FROM articles WHERE user_id = '.getLoggedInUserId() .' and deleted_at IS NULL');
         }
 
         return $res;
@@ -70,24 +72,26 @@ function getArticles(PDO $conn, bool $withTrashed = false): object
     catch(PDOException $e)
     {
         flash('msg', '<strong>Oops, something went wrong:</strong> '. $e->getMessage());
-        redirect('error.php');
+        redirect('index.php');
     }
 }
 
-function getOneArticle(PDO $conn, int $article_id): array
+function getOneArticle(PDO $conn, int $article_id): bool|array
 {
-    $sql = "SELECT * FROM articles where id = :article_id";
+    $sql = "SELECT * FROM articles WHERE user_id = :user_id AND id = :article_id";
+    $user_id = getLoggedInUserId();
 
     try
     {
         $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindParam(':article_id', $article_id, PDO::PARAM_INT);
         $stmt->execute();
     }
     catch(PDOException $e)
     {
-        echo $e->getMessage();
-        die();
+        flash('msg', '<strong>Oops, something went wrong:</strong> '. $e->getMessage());
+        redirect('index.php');
     }
 
     return $stmt->fetch();
@@ -95,18 +99,20 @@ function getOneArticle(PDO $conn, int $article_id): array
 
 function deleteArticle(object $conn, int $article_id): bool
 {
-    $sql = "DELETE FROM articles where id = :article_id";
+    $sql = "UPDATE articles SET deleted_at = :deleted_at WHERE id = :article_id";
+    $now = getCurrentDateTime();
 
     try
     {
         $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':deleted_at', $now, PDO::PARAM_STR);
         $stmt->bindParam(':article_id', $article_id, PDO::PARAM_INT);
         $stmt->execute();
     }
     catch(PDOException $e)
     {
-        echo $e->getMessage();
-        die();
+        flash('msg', '<strong>Oops, something went wrong:</strong> '. $e->getMessage());
+        redirect('index.php');
     }
 
     return true;

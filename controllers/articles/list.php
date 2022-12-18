@@ -1,0 +1,2 @@
+<?php
+$articles = getArticles($conn);

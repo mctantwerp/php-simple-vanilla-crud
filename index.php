@@ -3,6 +3,7 @@
     include('./functions/database.php');
     include('./functions/helpers.php');
     include('./models/articles.php');
+    include('./models/users.php');
 
     $conn = dbConnect(
         user: 'root',
@@ -13,64 +14,28 @@
     registerExceptionHandler();
     session_start();
 
-    // Gebruiker nog niet ingelogged
-    if(!isset($_SESSION['logged_in']))
+    // Get active page, set default page to articles
+    $page = $_GET['page'] ?? 'articles';
+
+    include './controllers/login.php';
+    include './controllers/logout.php';
+
+    switch($page)
     {
-        // Login formulier gesubmit?
-        if(isset($_POST['submit']))
-        {
-            // Kloppen de login gegevens?
-            if($_POST['email'] == 'test@test.be' && $_POST['password'] == 'testtest')
-            {
-                // Alles klopt, you may proceed
-                $_SESSION['logged_in'] = 1;
-            }
-            else
-            {
-                // Gegevens kloppen niet, foutmelding geven
-                flash('msg', 'Wrong login and/or password');
-                flash('form', [
-                    'email' => $_POST['email'],
-                ]);
-                redirect('index.php');
-            }
+        case 'users': {
+            include './templates/header.php';
+            include './pages/users.php';
+            include './templates/footer.php';
+        }break;
+
+        case 'login': {
+            include './pages/login.php';
+        }break;
+
+        default: {
+            include './templates/header.php';
+            include './pages/articles.php';
+            include './templates/footer.php';
         }
-
-        // Er is geen gebruiker ingelogged en er is ook nog niets verstuurd dus gewoon login form tonen
-        if(!isset($_POST['submit']))
-        {
-            include('./pages/login.php');
-        }
-    }
-
-    // Gebruiker is ingelogged
-    if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1)
-    {
-        // Mechanisme om iemand uit te loggen via ?logout=1
-        if(isset($_GET['logout']) && $_GET['logout'] == 1)
-        {
-            session_destroy();
-            header('location: index.php');
-        }
-
-        // Als er geen pagina wordt meegegeven tonen we standaard de home page
-        if(isset($_GET['page'])) $page = $_GET['page'];
-        if(!isset($_GET['page'])) $page = 'home';
-
-        include('./templates/header.php');
-
-        switch($page)
-        {
-            case 'add': {
-                include('./pages/add_article.php');
-            }break;
-
-            default: {
-                include('./pages/home.php');
-            }
-
-        }
-
-        include('./templates/footer.php');
     }
 ?>

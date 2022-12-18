@@ -32,7 +32,7 @@
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2021 - 2022</p>
+        <p class="mt-5 mb-3 text-muted">&copy; 2022 - 2023</p>
     </form>
   </body>
 </html>

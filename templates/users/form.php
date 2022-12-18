@@ -16,14 +16,14 @@
 
         <form action="<?= $form_action; ?>" method="post">
           <div class="form-group">
-            <label for="title">Titel</label>
-            <input type="text" class="form-control" id="title" name="title" value="<?= $title ?? old('title'); ?>">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" value="<?= $email ?? old('email'); ?>">
           </div>
           <div class="form-group">
-            <label for="article">Inhoud</label>
-            <textarea class="form-control" id="article" rows="10" name="article"><?= $article ?? old('article'); ?></textarea>
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" value="">
           </div>
-          <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Artikel opslaan</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Save user</button>
         </form>
         </div>
     </div>
