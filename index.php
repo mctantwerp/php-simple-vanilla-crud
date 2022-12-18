@@ -22,19 +22,27 @@
 
     switch($page)
     {
-        case 'users': {
-            include './templates/header.php';
-            include './pages/users.php';
-            include './templates/footer.php';
-        }break;
-
-        case 'login': {
+        case 'login':
+        {
             include './pages/login.php';
-        }break;
+        }
+        break;
 
-        default: {
+        default:
+        {
             include './templates/header.php';
-            include './pages/articles.php';
+
+            switch($page)
+            {
+                case 'users': {
+                    include './pages/users.php';
+                }break;
+
+                default: {
+                    include './pages/articles.php';
+                }
+            }
+
             include './templates/footer.php';
         }
     }
