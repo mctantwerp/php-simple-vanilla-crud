@@ -1,10 +1,16 @@
 <?php
-    include('./functions/db.php');
+    include('./vendor/autoload.php');
+    include('./functions/database.php');
     include('./functions/helpers.php');
-    include('./functions/articles.php');
+    include('./models/articles.php');
 
-    $conn = dbConnect();
+    $conn = dbConnect(
+        user: 'root',
+        pass: '',
+        db: 'kdg_crud',
+    );
 
+    registerExceptionHandler();
     session_start();
 
     // Gebruiker nog niet ingelogged
@@ -22,9 +28,11 @@
             else
             {
                 // Gegevens kloppen niet, foutmelding geven
-                $msg = 'Wrong login and/or password';
-
-                include('./pages/login.php');
+                flash('msg', 'Wrong login and/or password');
+                flash('form', [
+                    'email' => $_POST['email'],
+                ]);
+                redirect('index.php');
             }
         }
 

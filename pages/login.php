@@ -19,7 +19,7 @@
   <body class="text-center">
     <form class="form-signin" method="post">
         <?php
-            if(isset($msg))
+            if(!empty($msg = flash('msg')))
             {
                 echo '<div class="alert alert-danger" role="alert">';
                 echo $msg;
@@ -28,7 +28,7 @@
         ?>
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" value="<?= old('email'); ?>" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>

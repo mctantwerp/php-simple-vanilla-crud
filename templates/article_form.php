@@ -6,7 +6,7 @@
         <div class="col-md-12">
 
         <?php
-            if(isset($msg))
+            if(!empty($msg = flash('msg')))
             {
                 echo '<div class="alert alert-danger" role="alert">';
                 echo $msg;
@@ -16,12 +16,12 @@
 
         <form action="<?= $form_action; ?>" method="post">
           <div class="form-group">
-            <label for="titel">Titel</label>
-            <input type="text" class="form-control" id="titel" name="titel" value="<?= (isset($titel)) ? $titel : ""; ?>">
+            <label for="title">Titel</label>
+            <input type="text" class="form-control" id="title" name="title" value="<?= $title ?? old('title'); ?>">
           </div>
           <div class="form-group">
-            <label for="inhoud">Inhoud</label>
-            <textarea class="form-control" id="inhoud" rows="10" name="inhoud"><?= (isset($inhoud)) ? $inhoud : ""; ?></textarea>
+            <label for="article">Inhoud</label>
+            <textarea class="form-control" id="article" rows="10" name="article"><?= $article ?? old('article'); ?></textarea>
           </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Artikel opslaan</button>
         </form>

@@ -12,24 +12,20 @@
     if(isset($_POST['submit']))
     {
         // Alles wel ingevuld?
-        if(empty($_POST['titel']) || empty($_POST['inhoud']))
+        if(empty($_POST['title']) || empty($_POST['article']))
         {
-            $msg = 'Vul alle velden in svp';
+            flash('msg', 'Vul alle velden in svp');
+            flash('form', [
+                'title' => $_POST['title'],
+                'article' => $_POST['article']
+            ]);
 
-            // Als bvb. 1 van de 2 velden al ingevuld was gaan we die terug prepopulaten
-            $titel = $_POST['titel'];
-            $inhoud = $_POST['inhoud'];
-
-            include('./templates/article_form.php');
+            redirect('index.php?page=add');
         }
 
-        if(!empty($_POST['titel']) && !empty($_POST['inhoud']))
-        {
-            // Article toevoegen in database, als dat lukt, boodschap tonen
-            if(addArticle($conn, $_POST['titel'], $_POST['inhoud'])) {
-                $msg = 'Artikel toegevoegd';
+        // Article toevoegen in database, als dat lukt, boodschap tonen
+        addArticle($conn, 1, $_POST['title'], $_POST['article']);
+        flash('msg', 'Artikel toegevoegd');
 
-                include('./templates/article_form.php');
-            }
-        }
+        redirect('index.php?page=home');
     }

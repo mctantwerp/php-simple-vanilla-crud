@@ -21,10 +21,13 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link<?php getActiveMenu('home', $page); ?>" href="?page=home">Home</a>
+          <a class="nav-link<?php getActiveMenu('home', $page); ?>" href="index.php?page=home">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link<?php getActiveMenu('add', $page); ?>" href="?page=add">Artikel toevoegen</a>
+          <a class="nav-link<?php getActiveMenu('add', $page); ?>" href="index.php?page=add">Artikel toevoegen</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php?logout=1">Uitloggen</a>
         </li>
       </ul>
     </div>

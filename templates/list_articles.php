@@ -1,6 +1,6 @@
 <div class="container main">
     <?php
-        if(isset($msg))
+        if(!empty($msg = flash('msg')))
         {
             echo '<div class="alert alert-danger" role="alert">';
             echo $msg;
@@ -26,13 +26,13 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($artikels as $artikel): ?>
+                <?php foreach($articles as $article): ?>
                 <tr>
-                    <td><?= substr($artikel['titel'], 0, 15); ?></td>
-                    <td><?= substr($artikel['inhoud'], 0, 15); ?></td>
+                    <td><?= substr($article['title'], 0, 15); ?></td>
+                    <td><?= substr($article['article'], 0, 15); ?></td>
                     <td>
-                        <a href="?page=home&action=edit&id=<?= $artikel['id']; ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a href="?page=home&action=delete&id=<?= $artikel['id']; ?>" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        <a href="?page=home&action=edit&id=<?= $article['id']; ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a href="?page=home&action=delete&id=<?= $article['id']; ?>" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
