@@ -11,14 +11,14 @@ if(isset($_POST['submit']))
             'article' => $_POST['article']
         ]);
 
-        redirect('index.php?page=add');
+        redirect('index.php?page=articles&action=add');
     }
 
     // Add article to database and show message
     addArticle($conn, getLoggedInUserId(), $_POST['title'], $_POST['article']);
     flash('msg', 'Article added');
 
-    redirect('index.php?page=home');
+    redirect('index.php?page=articles');
 }
 
 // Meta data (because we're using the same template for this form)

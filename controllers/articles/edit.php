@@ -12,12 +12,12 @@ if(isset($_POST['submit']))
             'article' => $_POST['article']
         ]);
 
-        redirect('index.php?page=home&action=edit&id='. $id);
+        redirect('index.php?page=articles&action=edit&id='. $id);
     }
 
     updateArticle($conn, $id, $_POST['title'], $_POST['article']);
     flash('msg', 'Article is updated');
-    redirect('index.php?page=home&action=edit&id='. $id);
+    redirect('index.php?page=articles&action=edit&id='. $id);
 }
 
 // Fetch article
@@ -31,7 +31,7 @@ if(empty($article))
 
 // Meta data (because we're using the same template for this form)
 $titel_action = 'Edit article';
-$form_action = 'index.php?page=home&action=edit&id='. $id;
+$form_action = 'index.php?page=articles&action=edit&id='. $id;
 
 // Prefill fields
 $title = $article['title'];
